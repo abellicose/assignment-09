@@ -10,14 +10,14 @@ export default function NavbarClient({ loggedIn, name, profileUrl }) {
 
     async function handleLogout() {
         setLoggingOut(true);
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/logout", { credentials: "include" });
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/logout", { method: "POST", credentials: "include" });
         const result = await response.json();
         setLoggingOut(false);
         if (!response.ok) {
             console.log(result.message);
             return;
         }
-        router.push("/");
+        router.refresh();
     }
 
     return (
@@ -49,7 +49,7 @@ export default function NavbarClient({ loggedIn, name, profileUrl }) {
                                 <img src={profileUrl} alt="" className="h-7 w-7 rounded-full object-cover" />
                                 <span className="text-sm font-medium text-ink">{name}</span>
                             </div>
-                            <ul className="hidden group-hover:block absolute right-0 top-full mt-2 w-52 rounded-xl border border-surface-subtle bg-surface p-1.5 list-none m-0">
+                            <ul className="hidden group-hover:block absolute right-0 top-full w-52 rounded-xl border border-surface-subtle bg-surface p-1.5 list-none m-0">
                                 <li className="flex items-center gap-2.5 px-3 py-2 border-b border-surface-subtle mb-1">
                                     <img src={profileUrl} alt="" className="h-7 w-7 rounded-full object-cover" />
                                     <span className="text-sm font-medium text-ink">{name}</span>
@@ -58,7 +58,7 @@ export default function NavbarClient({ loggedIn, name, profileUrl }) {
                                 <li><Link href="/profile/myfacilities" className="block rounded-md px-3 py-2 text-sm text-ink hover:bg-surface-muted">Manage My Facilities</Link></li>
                                 <li><Link href="/profile/myfacilities/add" className="block rounded-md px-3 py-2 text-sm text-ink hover:bg-surface-muted">Add Facility</Link></li>
                                 <li className="mt-1 border-t border-surface-subtle pt-1">
-                                    <button onClick={handleLogout} className="flex w-full rounded-md px-3 py-2 text-sm text-brand hover:bg-orange-50 disabled:opacity-50">
+                                    <button onClick={handleLogout} className="flex w-full rounded-md px-3 py-2 text-sm text-brand hover:bg-orange-50 disabled:opacity-50 cursor-pointer">
                                         Logout
                                     </button>
                                 </li>
