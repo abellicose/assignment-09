@@ -1,1 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700&family=DM+Sans:wght@400;500&display=swap');
 @import "tailwindcss";
+
+@theme {
+    --color-brand: #D4A017;
+    --color-brand-light: #E8B84B;
+    --color-brand-dark: #A87C10;
+
+    --color-surface: #1C1C1E;
+    --color-surface-muted: #2C2C2E;
+    --color-surface-subtle: #3A3A3C;
+
+    --color-ink: #F5F5F0;
+    --color-ink-muted: #A1A1A0;
+    --color-ink-subtle: #6B6B6A;
+}
+
+@layer base {
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--color-surface);
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Roboto Slab', serif;
+  }
+}
