@@ -25,7 +25,7 @@ export default function NavbarClient({ loggedIn, name, profileUrl }) {
             <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
 
                 <h2 className="text-lg font-black tracking-tight text-ink" style={{ letterSpacing: "-0.03em" }}>
-                    Sport<span className="text-brand">Nest</span>
+                    <Link href="/">Sport<span className="text-brand">Nest</span></Link>
                 </h2>
 
                 <nav>
