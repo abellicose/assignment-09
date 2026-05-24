@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function NavbarClient({ loggedIn, name, profileUrl }) {
-    console.log("Navbar client");
     const [isLoggingOut, setLoggingOut] = useState(false);
     const router = useRouter();
 
@@ -45,13 +44,13 @@ export default function NavbarClient({ loggedIn, name, profileUrl }) {
                 <div>
                     {loggedIn ? (
                         <div className="relative group">
-                            <div className="flex items-center gap-2 cursor-pointer rounded-lg border border-surface-subtle px-2.5 py-1.5 hover:bg-surface-muted transition-colors">
-                                <img src={profileUrl} alt="" className="h-7 w-7 rounded-full object-cover" />
+                            <Link href="/profile" className="flex items-center gap-2 cursor-pointer rounded-lg border border-surface-subtle px-2.5 py-1.5 hover:bg-surface-muted transition-colors">
+                                <img src={profileUrl || "/icons/user.svg"} alt="" className="h-7 w-7 rounded-full object-cover bg-black p-[2px]" />
                                 <span className="text-sm font-medium text-ink">{name}</span>
-                            </div>
+                            </Link>
                             <ul className="hidden group-hover:block absolute right-0 top-full w-52 rounded-xl border border-surface-subtle bg-surface p-1.5 list-none m-0">
                                 <li className="flex items-center gap-2.5 px-3 py-2 border-b border-surface-subtle mb-1">
-                                    <img src={profileUrl} alt="" className="h-7 w-7 rounded-full object-cover" />
+                                    <img src={profileUrl || "/icons/user.svg"} alt="" className="h-7 w-7 rounded-full object-cover bg-black p-[2px]" />
                                     <span className="text-sm font-medium text-ink">{name}</span>
                                 </li>
                                 <li><Link href="/profile/bookings" className="block rounded-md px-3 py-2 text-sm text-ink hover:bg-surface-muted">My Bookings</Link></li>

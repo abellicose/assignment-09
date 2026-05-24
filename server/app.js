@@ -265,11 +265,15 @@ app.get("/api/auth/me", authVerify, async(req, res, next) => {
 
 
 // facilities
+
 app.get("/api/facilities", async(req, res) => {
-    console.log(req.query);
+    const query = {};
+    if (req.query.search) { query.name = { $regex: req.query.search, $options: "i" }; }
+    if (req.query.sport) { query.facility_type = { $in: [req.query.sport] }; }
+
     try {
         const coll = await db.collection("facilities");
-        const facilities = await coll.find().toArray();
+        const facilities = await coll.find(query).toArray();
         res.json(facilities);
     } catch (err) {
         console.log(err);
@@ -289,6 +293,20 @@ app.get("/api/facilities/:id", authVerify, async(req, res) => {
     } catch (err) {
         console.log(err);
         res.status(404).json({ message: "Failed to fetch facility" });
+    }
+});
+
+app.get("/api/facilities/mine", authVerify, async(req, res) => {
+    try {
+        const coll = await db.collection("facilities");
+        const myfac = await db.find({ ownerId: req.user.id }).toArray();
+        if (!myfac) {
+            return res.status(404).json({ message: "This user has no bookings" });
+        }
+        res.json(myfac);
+    } catch(err) {
+        console.log(err);
+        return rest.status(404).json({ message: "Failed to fetch bookings" });
     }
 });
 
