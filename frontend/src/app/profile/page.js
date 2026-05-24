@@ -12,7 +12,7 @@ export default async function Profile() {
                     alt={`Photo of ${user.name}`}
                     width={80}
                     height={80}
-                    className="rounded-full object-cover ring-2 ring-surface-subtle flex-shrink-0"
+                    className="rounded-full object-cover ring-2 ring-surface-subtle flex-shrink-0 p-2"
                 />
                 <div className="flex flex-col gap-1">
                     <h2 className="text-xl font-bold text-ink tracking-tight">{user.name}</h2>

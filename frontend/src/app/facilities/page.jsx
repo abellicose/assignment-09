@@ -5,7 +5,7 @@ import Loading from  "@/app/facilities/Loading";
 
 export default async function Facilities({ searchParams }) {
     const { search, sport } = await searchParams;
-    const key = `${search}-${sport}`; // changes with every new search
+    const key = `${search}-${sport}`;
     return (
         <main className="min-h-screen">
             <Search />
