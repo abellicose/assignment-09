@@ -3,7 +3,7 @@
 A full-stack sports facility booking platform built with the MERN stack.
 
 ## Live URL
-[SportNest](https://assignment-09-frontend-7fdy2blk4-abellicoses-projects.vercel.app)
+[SportNest](https://assignment-09-frontend.vercel.app/)
 
 ## Purpose
 SportNest allows users to discover and book sports facilities such as football turfs, badminton courts, tennis courts, and swimming lanes. Facility owners can list and manage their own venues, while users can browse, filter, and book available time slots.
