@@ -37,7 +37,7 @@ export default function Login() {
             return;
         }
         router.push("/");
-        router.refresh();
+        // router.refresh();
     }
 
     function handleChange() {
