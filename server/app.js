@@ -313,7 +313,7 @@ app.get("/api/auth/google/callback",
             httpOnly: true, sameSite: "lax", secure: false, 
             maxAge: 7 * 24 * 3600 * 1000 
         });
-        res.redirect("https://assignment-09-frontend.vercel.app");
+        res.redirect(`https://assignment-09-frontend.vercel.app/auth/callback?token=${token}`);
     }
 );
 
