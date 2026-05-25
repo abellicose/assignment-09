@@ -127,13 +127,13 @@ app.post("/api/bookings", authVerify, async(req, res) => {
     const {email, id} = req.user;
     try {
         let coll = await db.collection("facilities");
-        const facility = coll.findOne({ _id: new ObjectId(data.facility_id) });
+        const facility = await coll.findOne({ _id: new ObjectId(data.facility_id) });
         if (!facility) {
             return res.status(404).json({ message: "No facility with this id found" });
         }
 
         coll = await db.collection("bookings");
-        const result = await coll.insertOne({...data, ownerId: id, facility_name: facility.name, hours: data.time_slots.length, total_price: data.time_slots.length * data.hours, status: "Pending"});
+        const result = await coll.insertOne({...data, ownerId: id, facility_name: facility.name, hours: data.time_slots.length, total_price: data.time_slots.length * facility.price_per_hour, status: "Pending"});
         if (result.acknowledged) {
             res.json({ message: "booking added successfully" });
         } else {
