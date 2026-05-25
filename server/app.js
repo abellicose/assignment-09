@@ -379,7 +379,11 @@ app.get("/api/bookings", authVerify, async(req, res) => {
     }
 })
 
-app.listen(5005, async() => {
-    await launchDb();
-    console.log("Listening on port 5005");
-});
+module.export = app
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
