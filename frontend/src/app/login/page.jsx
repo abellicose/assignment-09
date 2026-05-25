@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import LoginWithGoogle from "@/comps/LoginWithGoogle";
 
 export default function Login() {
     const [loggingIn, setLoggingIn] = useState(false);
@@ -95,6 +96,7 @@ export default function Login() {
                 <p className="mt-6 text-center text-sm text-ink-muted">
                     Don't have an account?{" "}
                     <a href="/register" className="text-brand hover:text-brand-light transition-colors">Register</a>
+                    <LoginWithGoogle />
                 </p>
                 {error && (
                     <div className="mt-4 mb-6 rounded-lg border border-red-800 bg-red-950 px-4 py-3">

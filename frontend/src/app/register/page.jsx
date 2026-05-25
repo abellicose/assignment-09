@@ -3,6 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import LoginWithGoogle from "@/comps/LoginWithGoogle";
 
 const schema = z.object({
     name: z.string().min(1, "Please enter your name"),
@@ -137,6 +138,7 @@ export default function Register() {
                 <p className="mt-6 text-center text-sm text-ink-muted">
                     Already have an account?{" "}
                     <a href="/login" className="text-brand hover:text-brand-light transition-colors">Login</a>
+                    <LoginWithGoogle />
                 </p>
 
             </div>
