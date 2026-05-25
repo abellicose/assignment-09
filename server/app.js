@@ -41,7 +41,7 @@ function authVerify(req, res, next) {
     }
 
     try {
-        const userData = jwt.verify(token, process.env.JWT_SECRET);
+        const userData = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ["HS256"] });
         req.user = userData;
         next();
     } catch(err) {
