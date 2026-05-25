@@ -30,8 +30,8 @@ export default function Login() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
         });
+
         const data = await response.json();
-        setLoggingIn(false);
         if (!response.ok) {
             setError(data.message);
             return;
@@ -42,6 +42,8 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token: data.token }),
         });
+
+        setLoggingIn(false);
 
         router.push("/");
         router.refresh();
