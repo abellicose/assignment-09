@@ -379,7 +379,7 @@ app.get("/api/bookings", authVerify, async(req, res) => {
     }
 })
 
-module.export = app
+module.exports = app
 
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
