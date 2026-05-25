@@ -302,7 +302,7 @@ app.get("/api/auth/google", passport.authenticate("google", {
 }));
 
 app.get("/api/auth/google/callback",
-    passport.authenticate("google", { session: false, failureRedirect: "http://localhost:3000/login" }),
+    passport.authenticate("google", { session: false, failureRedirect: "https://assignment-09-frontend.vercel.app/login" }),
     (req, res) => {
         const token = jwt.sign(
             { email: req.user.email, id: req.user._id }, 
@@ -313,7 +313,7 @@ app.get("/api/auth/google/callback",
             httpOnly: true, sameSite: "lax", secure: false, 
             maxAge: 7 * 24 * 3600 * 1000 
         });
-        res.redirect("http://localhost:3000");
+        res.redirect("https://assignment-09-frontend.vercel.app");
     }
 );
 
