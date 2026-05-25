@@ -11,7 +11,7 @@ const nextConfig = {
         return [
             {
                 source: "/api/:path*",
-                destination: "https://assignment-09-sigma.vercel.app/api/:path*",
+                destination: "http://localhost:5005/api/:path*",
             },
         ];
     },

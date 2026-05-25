@@ -36,6 +36,13 @@ export default function Login() {
             setError(data.message);
             return;
         }
+
+        await fetch('/api/set-cookie', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: data.token }),
+        });
+
         router.push("/");
         router.refresh();
     }

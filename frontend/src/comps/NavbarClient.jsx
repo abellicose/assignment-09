@@ -10,13 +10,22 @@ export default function NavbarClient({ loggedIn, name, profileUrl }) {
 
     async function handleLogout() {
         setLoggingOut(true);
+        console.log(process.env.NEXT_PUBLIC_API_URL + "/api/auth/logout");
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/auth/logout", { method: "POST", credentials: "include" });
         const result = await response.json();
         setLoggingOut(false);
+        console.log(result.message);
         if (!response.ok) {
             console.log(result.message);
             return;
         }
+
+        await fetch('/api/set-cookie', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: "" }),
+        });
+
         router.refresh();
     }
 
