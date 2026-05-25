@@ -163,6 +163,10 @@ app.post("/api/bookings", authVerify, async(req, res) => {
         } else {
             res.status(404).json({ message: "Failed to add booking" });
         }
+        await db.collection("facilities").updateOne(
+            { _id: new ObjectId(data.facility_id) },
+            { $inc: { booking_count: 1 } }
+        );
     } catch(err){
         console.log(err);
         res.status(404).json({ message: "Could not add booking" });
@@ -263,6 +267,12 @@ app.patch("/api/bookings/:id", authVerify, async(req, resp) => {
             resp.json({ message: "Booking updated successfully" });
         } else {
             resp.status(404).json({ message: "Booking wasnt updated in the database" });
+        }
+        if (data.status === "Cancelled") {
+            await db.collection("facilities").updateOne(
+                { _id: new ObjectId(booking.facility_id) },
+                { $inc: { booking_count: -1 } }
+            );
         }
     } catch (err) {
         console.log(err);

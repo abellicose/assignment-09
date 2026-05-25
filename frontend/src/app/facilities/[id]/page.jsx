@@ -8,6 +8,7 @@ export default async function FacilityPage({ params }) {
     const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/facilities/" + id, {
         headers: { "Cookie": cookie.toString() }
     });
+
     if (!resp.ok) return (
         <main className="min-h-screen flex items-center justify-center">
             <p className="text-ink-muted text-sm">Facility not found.</p>
@@ -35,6 +36,7 @@ export default async function FacilityPage({ params }) {
                                 { label: "Location", value: data.location },
                                 { label: "Price/Hour", value: `৳${data.price_per_hour}` },
                                 { label: "Capacity", value: data.capacity },
+                                { label: "Bookings", value: data.booking_count || 0 },
                             ].map(({ label, value }) => (
                                 <div key={label} className="flex flex-col gap-0.5 bg-surface-muted rounded-lg px-4 py-3 border border-surface-subtle">
                                     <dt className="text-xs text-ink-subtle">{label}</dt>

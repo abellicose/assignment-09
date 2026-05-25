@@ -9,6 +9,7 @@ export default function BookingForm({ slots, id }) {
     const router = useRouter();
 
     async function handleSubmit(e) {
+        console.log("SUBMITTED");
         e.preventDefault();
         setLoading(true);
         const formData = new FormData(e.target);
@@ -30,6 +31,7 @@ export default function BookingForm({ slots, id }) {
             return;
         }
         setSuccess(true);
+        router.refresh();
     }
 
     function handleChange() { setError(""); }

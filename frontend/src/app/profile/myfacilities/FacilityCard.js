@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function FacilityCard({ facility }) {
     const [deleting, setDeleting] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const router = useRouter();
 
     async function deleteFacility(id) {
@@ -61,14 +62,31 @@ export default function FacilityCard({ facility }) {
                     </ul>
                 </div>
                 <div className="flex gap-2 mt-auto pt-3 border-t border-surface-subtle">
-                    <button
-                        onClick={() => deleteFacility(facility._id)}
-                        className="rounded-md border border-red-900 px-3 py-1.5 text-xs text-red-400 hover:bg-red-950 transition-colors"
-                    >
-                        {deleting ? "Removing..." : "Remove Facility"}
-                    </button>
-                </div>
-            </div>
+                    {confirmDelete ? (
+                        <>
+                            <p className="text-xs text-ink-muted self-center">Are you sure?</p>
+                            <button
+                                onClick={() => deleteFacility(facility._id)}
+                                className="rounded-md border border-red-900 px-3 py-1.5 text-xs text-red-400 hover:bg-red-950 transition-colors"
+                            >
+                                {deleting ? "Removing..." : "Yes, remove"}
+                            </button>
+                            <button
+                                onClick={() => setConfirmDelete(false)}
+                                className="rounded-md border border-surface-subtle px-3 py-1.5 text-xs text-ink-muted hover:text-ink transition-colors"
+                            >
+                                Cancel
+                            </button>
+                        </>
+                    ) : (
+                            <button
+                                onClick={() => setConfirmDelete(true)}
+                                className="rounded-md border border-red-900 px-3 py-1.5 text-xs text-red-400 hover:bg-red-950 transition-colors"
+                            >
+                                Remove Facility
+                            </button>
+                        )}
+                </div>            </div>
         </article>
     );
 }
