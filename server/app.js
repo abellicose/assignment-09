@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(express.json());
+// app.use(cors({ origin: ["http://localhost:5005", "https://assignment-09-frontend.vercel.app"], credentials: true }));
 app.use(cors({ origin: "https://assignment-09-frontend.vercel.app", credentials: true }));
 app.use(cookieParser());
 
@@ -389,7 +390,7 @@ module.exports = async (req, res) => {
 
 if (require.main === module) {
   launchDb().then(() => {
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 5005;
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
