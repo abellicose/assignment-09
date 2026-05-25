@@ -379,11 +379,19 @@ app.get("/api/bookings", authVerify, async(req, res) => {
     }
 })
 
-module.exports = app
+// Claude code because I Can't figure out how to fix this
+module.exports = async (req, res) => {
+  if (!db) {
+    await launchDb();
+  }
+  return app(req, res);
+};
 
 if (require.main === module) {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  launchDb().then(() => {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   });
 }
