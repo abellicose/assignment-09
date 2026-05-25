@@ -11,6 +11,30 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(cookieParser());
 
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "/api/auth/google/callback"
+}, async (accessToken, refreshToken, profile, done) => {
+    const coll = db.collection("users");
+    let user = await coll.findOne({ email: profile.emails[0].value });
+    if (!user) {
+        const result = await coll.insertOne({
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            profileUrl: profile.photos[0].value,
+            createdAt: Date.now()
+        });
+        user = await coll.findOne({ _id: result.insertedId });
+    }
+    return done(null, user);
+}));
+
+app.use(passport.initialize());
+
 const uri = process.env.MONGODB_URI;
 console.log(uri);
 if (!uri) throw new Error("Please put your MONGODB URL in .env file");
@@ -262,6 +286,26 @@ app.get("/api/auth/me", authVerify, async(req, res, next) => {
         res.status(404).json({ message: "Failed to get user info" });
     }
 });
+
+app.get("/api/auth/google", passport.authenticate("google", { 
+    scope: ["profile", "email"] 
+}));
+
+app.get("/api/auth/google/callback",
+    passport.authenticate("google", { session: false, failureRedirect: "http://localhost:3000/login" }),
+    (req, res) => {
+        const token = jwt.sign(
+            { email: req.user.email, id: req.user._id }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: "7d" }
+        );
+        res.cookie("token", token, { 
+            httpOnly: true, sameSite: "lax", secure: false, 
+            maxAge: 7 * 24 * 3600 * 1000 
+        });
+        res.redirect("http://localhost:3000");
+    }
+);
 
 
 // facilities
