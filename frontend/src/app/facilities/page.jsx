@@ -8,7 +8,7 @@ export default async function Facilities({ searchParams }) {
     const key = `${search}-${sport}`;
     return (
         <main className="min-h-screen">
-            <Search />
+            <Search sport={sport} />
             <Suspense key={key} fallback={<Loading/>}>
                 <List search={search} sport={sport} />
             </Suspense>

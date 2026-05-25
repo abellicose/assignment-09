@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 // technically this should probably be received from the database
 const sports = ["Football", "Cricket", "Basketball", "Badminton", "Tennis", "Swimming"];
 
-export default function Search() {
+export default function Search({ sport }) {
     const [categories, setCategories] = useState([]);
     const router = useRouter();
 
@@ -17,7 +17,7 @@ export default function Search() {
         const sport = form.sport.value;
         const params = new URLSearchParams();
         if (query) params.set("search", query);
-        if (sport) params.set("sport", sport.toLocaleLowerCase());
+        if (sport) params.set("sport", sport);
         router.push("/facilities?" + params.toString());
         router.refresh();
     }
@@ -33,9 +33,10 @@ export default function Search() {
                     <select
                         name="sport"
                         className="rounded-lg border border-surface-subtle bg-surface px-4 py-2.5 text-sm text-ink focus:border-brand focus:outline-none transition-colors"
+                        defaultValue={sport || ""}
                     >
                         <option value="">All Sports</option>
-                        {sports.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                        {sports.map(cat => <option key={cat} value={cat.toLocaleLowerCase()}>{cat}</option>)}
                     </select>
                     <button
                         type="submit"

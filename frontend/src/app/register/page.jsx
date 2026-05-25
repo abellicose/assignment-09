@@ -4,6 +4,13 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+const schema = z.object({
+    name: z.string().min(1, "Please enter your name"),
+    email: z.string().email("Invalid Email"),
+    password: z.string().min(6, "Password Must be at least 6 Characters").regex(/[A-Z]/, "Need one uppercase").regex(/[a-z]/, "Need one lowercase"),
+    profileUrl: z.string().url().optional().or(z.literal(""))
+});
+
 export default function Register() {
     const [isRegistering, setIsRegistering] = useState(false);
     const [errors, setErrors] = useState([]);
@@ -21,21 +28,17 @@ export default function Register() {
                 rawData[data.name] = data.value;
             }
         }
-        const schema = z.object({
-            name: z.string().min(1, "Please enter your name"),
-            email: z.string().email("Invalid Email"),
-            password: z.string().min(6, "Password Must be at least 6 Characters").regex(/[A-Z]/, "Need one uppercase").regex(/[a-z]/, "Need one lowercase"),
-            profileUrl: z.string().url().optional().or(z.literal(""))
-        });
+        
         const result = schema.safeParse(rawData);
         if (!result.success) {
             const schemaErrors = result.error.flatten().fieldErrors;
             errors[0] = schemaErrors.name?.[0];
             errors[1] = schemaErrors.email?.[0];
             errors[2] = schemaErrors.password?.join(", ");
+            setErrors(errors);
+            return;
         }
-        setErrors(errors);
-        if (errors.length !== 0) return;
+
         setIsRegistering(true);
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/register", {
             method: "POST",
