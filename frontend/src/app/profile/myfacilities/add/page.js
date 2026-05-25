@@ -49,7 +49,7 @@ export default function AddFacility() {
             });
             return;
         }
-        const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/facilities", {
+        const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/facilities", {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

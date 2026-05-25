@@ -8,7 +8,7 @@ export async function isLoggedIn() {
 export async function getUser() {
     const cookie = await cookies();
     if (!cookie.has("token")) return;
-    const user = await fetch("http://localhost:5005/api/auth/me", {
+    const user = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/auth/me", {
         headers: {
             "Cookie": cookie.toString()
         }

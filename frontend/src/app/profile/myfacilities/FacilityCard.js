@@ -11,7 +11,7 @@ export default function FacilityCard({ facility }) {
 
     async function deleteFacility(id) {
         setDeleting(true);
-        const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/facilities/" + id, {
+        const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/facilities/" + id, {
             method: "DELETE",
             credentials: "include"
         });

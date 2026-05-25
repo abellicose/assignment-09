@@ -10,7 +10,7 @@ export default function NavbarClient({ loggedIn, name, profileUrl }) {
 
     async function handleLogout() {
         setLoggingOut(true);
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/logout", { method: "POST", credentials: "include" });
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/auth/logout", { method: "POST", credentials: "include" });
         const result = await response.json();
         setLoggingOut(false);
         if (!response.ok) {

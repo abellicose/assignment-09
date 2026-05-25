@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(express.json());
-// app.use(cors({ origin: ["http://localhost:5005", "https://assignment-09-frontend.vercel.app"], credentials: true }));
 app.use(cors({ origin: "https://assignment-09-frontend.vercel.app", credentials: true }));
 app.use(cookieParser());
 
@@ -118,7 +117,7 @@ app.post("/api/auth/login", async(req, res) => {
     }
 
     const token = jwt.sign({ email, id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-    res.cookie("token", token, { httpOnly: true, sameSite: "none", secure: true, partitioned: true, maxAge:  7 * 24 * 3600 * 1000, });
+    res.cookie("token", token, { httpOnly: true, sameSite: 'none', secure: true, maxAge:  7 * 24 * 3600 * 1000, path: '/' });
     res.json({ message: "User Logged in Successfully" });
 });
 

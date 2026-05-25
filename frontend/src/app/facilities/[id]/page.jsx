@@ -5,7 +5,7 @@ import BookingForm from "./BookingForm";
 export default async function FacilityPage({ params }) {
     const { id } = await params;
     const cookie = await cookies();
-    const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/facilities/" + id, {
+    const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/facilities/" + id, {
         headers: { "Cookie": cookie.toString() }
     });
 

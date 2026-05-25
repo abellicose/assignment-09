@@ -11,7 +11,7 @@ export default function BookingCard({ booking }) {
     async function cancelBooking(id) {
         setCanceling(true);
         console.log("HI");
-        const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/bookings/" + id, {
+        const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/bookings/" + id, {
             method: "PATCH",
             credentials: "include",
             headers: {

@@ -5,7 +5,7 @@ export default async function List({ search, sport }) {
     if (search) urlparams.set("search", search);
     if (sport) urlparams.set("sport", sport);
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/facilities?" + urlparams.toString());
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/facilities?" + urlparams.toString());
     let facilities = [];
     if (response.ok) {
         const data = await response.json();

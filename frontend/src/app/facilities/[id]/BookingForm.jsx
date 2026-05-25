@@ -18,7 +18,7 @@ export default function BookingForm({ slots, id }) {
             booking_date: new Date().toISOString().split("T")[0],
             time_slots: formData.getAll("slots")
         };
-        const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/bookings", {
+        const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/bookings", {
             method: 'POST',
             credentials: 'include',
             headers: { "Content-Type": "application/json" },

@@ -18,7 +18,7 @@ const sports = [
 ];
 
 export default async function Home() {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/facilities");
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/facilities");
     const facilities = (await response.json()).slice(0, 6);
 
     return (

@@ -24,7 +24,7 @@ export default function Login() {
         setErrors(errors);
         if (errors.length !== 0) return;
         setLoggingIn(true);
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/login", {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/auth/login", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

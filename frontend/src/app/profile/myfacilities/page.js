@@ -5,7 +5,7 @@ import Link from "next/link";
 export default async function MyFacilities() {
     const cookie = await cookies();
     console.log(cookie.toString());
-    const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/facilities/mine", {
+    const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/facilities/mine", {
         headers: { "Cookie": cookie.toString() }
     });
     const data = await resp.json();

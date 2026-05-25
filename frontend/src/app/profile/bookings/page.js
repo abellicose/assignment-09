@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Bookings() {
     const cookie = await cookies();
-    const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/bookings", {
+    const resp = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/bookings", {
         headers: { "Cookie": cookie.toString() }
     });
     const data = await resp.json();
